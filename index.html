@@ -1477,5 +1477,21 @@ let pending=false;const observer=new MutationObserver(()=>{if(pending)return;pen
 })();
 </script>
 
+
+<!-- Lumi: assistente virtual Botpress (Webchat Bubble) -->
+<link rel="stylesheet" href="https://vdk-viber-runtime-prod.bot.botpress.host/edge/webchat.css" />
+<script src="https://vdk-viber-runtime-prod.bot.botpress.host/edge/webchat.js" defer></script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    fetch('https://vdk-viber-runtime-prod.bot.botpress.host/edge/bots/cfc80222-e6d0-4d4b-a29b-8b733fb09ea9/config')
+      .then((res) => { if (!res.ok) throw new Error('Configuração da Lumi indisponível'); return res.json(); })
+      .then(({ webchat }) => {
+        if (!window.VdkEdgeWebchat) throw new Error('Webchat não carregado');
+        VdkEdgeWebchat.mount({ ...webchat, mode: 'bubble', baseUrl: 'https://vdk-viber-runtime-prod.bot.botpress.host', botId: 'cfc80222-e6d0-4d4b-a29b-8b733fb09ea9' });
+      })
+      .catch((err) => console.warn('Lumi / Botpress:', err));
+  });
+</script>
+
 </body>
 </html>
